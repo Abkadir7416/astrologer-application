@@ -4,17 +4,14 @@ const FlowDistributor = require("../services/flowDistributor");
 
 const allocateUsers = async (req, res) => {
   try {
-    const users = req.body.users;
+    const users = req.body;
     if (!users || !Array.isArray(users)) {
-      return res.status(400).json({ error: "Invalid user input" });
+      return res.status(400).json({ error: "Invalid user input, users fields are required" });
     }
 
     const astrologers = await Astrologer.find();
-    console.log('astrologers: ', astrologers);
     const distributor = new FlowDistributor(astrologers);
-    console.log('distributor: ', distributor);
     const output = await distributor.distributeUsers(users);
-    console.log('output: ', output);
 
     res.json({ message: "Users allocated successfully", astrologers });
   } catch (error) {
