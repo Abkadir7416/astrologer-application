@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const allocationRoutes = require("./routes/allocationRoutes");
 const astrologerRoutes = require("./routes/astrologerRoutes");
 const authRoutes = require("./routes/authRoutes");
+const getAstrologers = require('./routes/astrologers');
 
 dotenv.config();
 const app = express();
@@ -21,7 +22,10 @@ app.use(morgan("combined"));
 app.use("/api", allocationRoutes);
 
 app.use("/api/auth", authRoutes);
+app.use("/api", getAstrologers);
 // app.use("/api/astrologers", astrologerRoutes);
+
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
